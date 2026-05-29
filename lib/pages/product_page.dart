@@ -17,6 +17,24 @@ class _ProductPageState extends State<ProductPage> {
     'assets/images/Placeholder_01-4.png',
   ];
 
+  final List<_ProductCardData> mostPopular = const [
+    _ProductCardData(
+      image: 'assets/images/Placeholder_01-11.png',
+      price: '\$78.00',
+      badge: 'New',
+    ),
+    _ProductCardData(
+      image: 'assets/images/Placeholder_01-12.png',
+      price: '\$78.00',
+      badge: '',
+    ),
+    _ProductCardData(
+      image: 'assets/images/Placeholder_01-13.png',
+      price: '\$78.00',
+      badge: 'Hot',
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -259,6 +277,43 @@ class _ProductPageState extends State<ProductPage> {
                                 child: const Text('View All Reviews'),
                               ),
                             ),
+                            const SizedBox(height: 18),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Text(
+                                    'Most Popular',
+                                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                                  ),
+                                ),
+                                const Text(
+                                  'See All',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF8E8E93),
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                _CircleIconButton(
+                                  icon: Icons.arrow_forward_ios_rounded,
+                                  background: const Color(0xFFEAF1FF),
+                                  iconColor: const Color(0xFF2F67F6),
+                                  onTap: () {},
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            SizedBox(
+                              height: 128,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: mostPopular.length,
+                                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                                itemBuilder: (context, index) =>
+                                    _SmallProductCard(data: mostPopular[index]),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -486,6 +541,74 @@ class _ReviewTile extends StatelessWidget {
       ),
     );
   }
+}
+
+class _SmallProductCard extends StatelessWidget {
+  const _SmallProductCard({required this.data});
+
+  final _ProductCardData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 102,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 88,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              color: const Color(0xFFF2F2F7),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Stack(
+              children: [
+                Positioned.fill(child: Image.asset(data.image, fit: BoxFit.cover)),
+                if (data.badge.isNotEmpty)
+                  Positioned(
+                    left: 8,
+                    bottom: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: data.badge == 'Hot'
+                            ? const Color(0xFFFFD6D6)
+                            : const Color(0xFFEAF1FF),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        data.badge,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          color: data.badge == 'Hot'
+                              ? const Color(0xFFE34B4B)
+                              : const Color(0xFF2F67F6),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            data.price,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w900),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProductCardData {
+  const _ProductCardData({required this.image, required this.price, required this.badge});
+
+  final String image;
+  final String price;
+  final String badge;
 }
 
 class _CircleIconButton extends StatelessWidget {
