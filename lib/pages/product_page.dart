@@ -142,6 +142,50 @@ class _ProductPageState extends State<ProductPage> {
                                 },
                               ),
                             ),
+                            const SizedBox(height: 16),
+                            const _SectionHeader(title: 'Specifications'),
+                            const SizedBox(height: 10),
+                            Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: const [
+                                _SpecChip(text: 'Cotton 95%'),
+                                _SpecChip(text: 'Nylon 5%'),
+                              ],
+                            ),
+                            const SizedBox(height: 14),
+                            Row(
+                              children: const [
+                                Text(
+                                  'Origin',
+                                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                                ),
+                                SizedBox(width: 12),
+                                _Pill(
+                                  text: 'EU',
+                                  textColor: Color(0xFF111111),
+                                  backgroundColor: Color(0xFFF2F2F7),
+                                  trailingIcon: Icons.keyboard_arrow_down_rounded,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                const Expanded(
+                                  child: Text(
+                                    'Size guide',
+                                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                                _CircleIconButton(
+                                  icon: Icons.arrow_forward_ios_rounded,
+                                  background: const Color(0xFFEAF1FF),
+                                  iconColor: const Color(0xFF2F67F6),
+                                  onTap: () {},
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -212,6 +256,27 @@ class _Pill extends StatelessWidget {
             Icon(trailingIcon, size: 16, color: const Color(0xFF8E8E93)),
           ],
         ],
+      ),
+    );
+  }
+}
+
+class _SpecChip extends StatelessWidget {
+  const _SpecChip({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF2F2F7),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
       ),
     );
   }
