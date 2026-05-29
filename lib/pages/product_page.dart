@@ -209,6 +209,56 @@ class _ProductPageState extends State<ProductPage> {
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 18),
+                            Row(
+                              children: const [
+                                Expanded(
+                                  child: Text(
+                                    'Rating & Reviews',
+                                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                                  ),
+                                ),
+                                Text(
+                                  '4/5',
+                                  style: TextStyle(fontSize: 12, color: Color(0xFF8E8E93)),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: List.generate(
+                                5,
+                                (i) => Icon(
+                                  i < 4 ? Icons.star_rounded : Icons.star_border_rounded,
+                                  size: 18,
+                                  color: const Color(0xFFFFB800),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            const _ReviewTile(
+                              avatar: 'assets/images/Placeholder_01-6.png',
+                              name: 'Veronika',
+                              rating: 4,
+                              text:
+                                  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, sed...',
+                            ),
+                            const SizedBox(height: 14),
+                            SizedBox(
+                              width: double.infinity,
+                              child: FilledButton(
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: const Color(0xFF2F67F6),
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(vertical: 14),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                onPressed: () {},
+                                child: const Text('View All Reviews'),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -369,6 +419,70 @@ class _DeliveryOptionTile extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ReviewTile extends StatelessWidget {
+  const _ReviewTile({
+    required this.avatar,
+    required this.name,
+    required this.rating,
+    required this.text,
+  });
+
+  final String avatar;
+  final String name;
+  final int rating;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF8F8FB),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(radius: 18, backgroundImage: AssetImage(avatar)),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        name,
+                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
+                      ),
+                    ),
+                    Row(
+                      children: List.generate(
+                        5,
+                        (i) => Icon(
+                          i < rating ? Icons.star_rounded : Icons.star_border_rounded,
+                          size: 14,
+                          color: const Color(0xFFFFB800),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  text,
+                  style: const TextStyle(fontSize: 11, height: 1.35, color: Color(0xFF8E8E93)),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
