@@ -37,14 +37,42 @@ class ProductPage extends StatelessWidget {
                           topRight: Radius.circular(24),
                         ),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.fromLTRB(18, 16, 18, 120),
-                        child: Text(
-                          'Base layout ready (hero image + rounded sheet).',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF8E8E93),
-                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(18, 16, 18, 120),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '\$17.00',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  SizedBox(height: 6),
+                                  Text(
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam arcu mauris, scelerisque eu mauris id, primis pulvinar sapien.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      height: 1.35,
+                                      color: Color(0xFF8E8E93),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            _CircleIconButton(
+                              icon: Icons.north_east,
+                              background: const Color(0xFFF6D7DD),
+                              iconColor: const Color(0xFFCC6E7C),
+                              onTap: () {},
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -54,6 +82,34 @@ class ProductPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _CircleIconButton extends StatelessWidget {
+  const _CircleIconButton({
+    required this.icon,
+    required this.background,
+    required this.iconColor,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final Color background;
+  final Color iconColor;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: onTap,
+      child: Container(
+        width: 32,
+        height: 32,
+        decoration: BoxDecoration(color: background, shape: BoxShape.circle),
+        child: Icon(icon, size: 16, color: iconColor),
       ),
     );
   }
