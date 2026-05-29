@@ -35,6 +35,15 @@ class _ProductPageState extends State<ProductPage> {
     ),
   ];
 
+  final List<_ProductCardData> youMightLike = const [
+    _ProductCardData(image: 'assets/images/Placeholder_01-10.png', price: '\$17.00', badge: ''),
+    _ProductCardData(image: 'assets/images/Placeholder_01-1.png', price: '\$17.00', badge: ''),
+    _ProductCardData(image: 'assets/images/Placeholder_01.png', price: '\$17.00', badge: ''),
+    _ProductCardData(image: 'assets/images/Placeholder_01-7.png', price: '\$17.00', badge: ''),
+    _ProductCardData(image: 'assets/images/Placeholder_01-8.png', price: '\$17.00', badge: ''),
+    _ProductCardData(image: 'assets/images/Placeholder_01-9.png', price: '\$17.00', badge: ''),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -313,6 +322,25 @@ class _ProductPageState extends State<ProductPage> {
                                 itemBuilder: (context, index) =>
                                     _SmallProductCard(data: mostPopular[index]),
                               ),
+                            ),
+                            const SizedBox(height: 18),
+                            const Text(
+                              'You Might Like',
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                            ),
+                            const SizedBox(height: 12),
+                            GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: youMightLike.length,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 12,
+                                childAspectRatio: 0.82,
+                              ),
+                              itemBuilder: (context, index) =>
+                                  _MediumProductCard(data: youMightLike[index]),
                             ),
                           ],
                         ),
@@ -599,6 +627,36 @@ class _SmallProductCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MediumProductCard extends StatelessWidget {
+  const _MediumProductCard({required this.data});
+
+  final _ProductCardData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              color: const Color(0xFFF2F2F7),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Image.asset(data.image, fit: BoxFit.cover),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          data.price,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w900),
+        ),
+      ],
     );
   }
 }
