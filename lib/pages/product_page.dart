@@ -9,6 +9,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int selectedVariation = 1;
+  int selectedDelivery = 0;
 
   final List<String> variationThumbnails = const [
     'assets/images/Placeholder_01-2.png',
@@ -186,6 +187,28 @@ class _ProductPageState extends State<ProductPage> {
                                 ),
                               ],
                             ),
+                            const SizedBox(height: 16),
+                            const _SectionHeader(title: 'Delivery'),
+                            const SizedBox(height: 10),
+                            Column(
+                              children: [
+                                _DeliveryOptionTile(
+                                  selected: selectedDelivery == 0,
+                                  title: 'Standard',
+                                  subtitle: '5-7days',
+                                  price: '\$3.00',
+                                  onTap: () => setState(() => selectedDelivery = 0),
+                                ),
+                                const SizedBox(height: 10),
+                                _DeliveryOptionTile(
+                                  selected: selectedDelivery == 1,
+                                  title: 'Express',
+                                  subtitle: '1-2days',
+                                  price: '\$12.00',
+                                  onTap: () => setState(() => selectedDelivery = 1),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -277,6 +300,75 @@ class _SpecChip extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+      ),
+    );
+  }
+}
+
+class _DeliveryOptionTile extends StatelessWidget {
+  const _DeliveryOptionTile({
+    required this.selected,
+    required this.title,
+    required this.subtitle,
+    required this.price,
+    required this.onTap,
+  });
+
+  final bool selected;
+  final String title;
+  final String subtitle;
+  final String price;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: selected ? const Color(0xFF2F67F6) : const Color(0xFFE5E5EA),
+            width: selected ? 2 : 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
+                  ),
+                  const SizedBox(width: 10),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEAF1FF),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      subtitle,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: Color(0xFF2F67F6),
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              price,
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
+            ),
+          ],
+        ),
       ),
     );
   }
