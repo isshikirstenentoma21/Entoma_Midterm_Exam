@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF2F67F6)),
-        scaffoldBackgroundColor: Colors.white,
+        // Dirty/off-white background (less bright than pure white)
+        scaffoldBackgroundColor: const Color(0xFFF7F5F2),
       ),
       home: const ProductPage(),
     );
   }
 }
-
